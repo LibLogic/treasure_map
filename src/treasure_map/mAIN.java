@@ -14,7 +14,7 @@ public class Main {
 		};
 		
 		int[][] bombLocs = new int[][] {
-			{2, 4}
+			{2, 3}
 		};
 		System.out.println(Arrays.toString(TreasureMap.treasureFinder(2, 2, directions, bombLocs)));
 	}
