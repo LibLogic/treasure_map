@@ -33,19 +33,18 @@ public class TreasureMap {
 			}
 			result[0] = x;
 			result[1] = y;
-			
-//			interimResult =  bombCheck(bombMap, xFrom, yFrom, x, y) == true ? new int[] {-1} : result;
-			
+						
 			if(bombCheck(bombMap, xFrom, yFrom, x, y)) {
 				return new int[] {-1};
 			}
-			
-
 		}
 		return result;
 	}
 	
 	private static boolean bombCheck(Map<String, Integer> bombMap, int xFrom, int yFrom, int x, int y) {
+		if(x < 0 || x > 20 || y < 0 || y > 20) {
+			return true;
+		}
 		int from = Integer.valueOf(Integer.toString(xFrom) + Integer.toString(yFrom));
 		int to = Integer.valueOf(Integer.toString(x) + Integer.toString(y));
 		int skipValue = yFrom == y ? 10 : 1;
