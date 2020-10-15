@@ -4,12 +4,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class TreasureMap {
+	static int mapWidth = 15;
 	
 	public static int[] treasureFinder(int x, int y, int[][] directions, int[][] bombLocs) {
 		
 		Map<String, Integer> bombMap = new HashMap<>();
 		for(int[] bombLoc : bombLocs) {
-			String location = Integer.toString(bombLoc[0]) + Integer.toString(bombLoc[1]);
+			String location = Integer.toString(bombLoc[0]) + " " + Integer.toString(bombLoc[1]);
 			bombMap.put(location, 0);
 		}
 
@@ -42,14 +43,36 @@ public class TreasureMap {
 	}
 	
 	private static boolean bombCheck(Map<String, Integer> bombMap, int xFrom, int yFrom, int x, int y) {
-		if(x < 0 || x > 20 || y < 0 || y > 20) {
+		if(x < 0 || x > mapWidth || y < 0 || y > mapWidth) {
 			return true;
 		}
-		int from = Integer.valueOf(Integer.toString(xFrom) + Integer.toString(yFrom));
-		int to = Integer.valueOf(Integer.toString(x) + Integer.toString(y));
-		int skipValue = yFrom == y ? 10 : 1;
-		for(int i = Math.min(from, to); i <= Math.max(from , to); i += skipValue) {
-			if(bombMap.containsKey(Integer.toString(i))) {
+		
+		int from = 0;
+		int to = 0;
+		String dir = "";
+		
+		if(yFrom == y) {
+			from = xFrom;
+			to = x;
+			dir = "x";
+		} else if(xFrom == x){
+			from = yFrom;
+			to = y;
+			dir = "y";
+		}
+		
+		for(int i = Math.min(from, to); i <= Math.max(from, to); i++) {
+			String key = "";
+			
+			if(dir.equals("x")) {
+				key = i + " " + y;
+			}
+			
+			if(dir.equals("y")) {
+				key = x + " " + i;
+			}
+			
+			if(bombMap.containsKey(key)) {
 				return true;
 			}
 		}
